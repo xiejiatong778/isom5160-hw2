@@ -31,15 +31,18 @@ SECRET PHRASE (must appear on the app page): ISOM5160-HW2-SMS
 #
 # GenAI acknowledgment (required if you used GenAI; otherwise write "None"):
 #   - Tools used: Claude Code (Anthropic)
-#   - How you used them: to help complete classify_text, compute_accuracy
-#     and the marked parts of main(), to test the app locally, and to draft
-#     the Q1/Q2 answers, which I reviewed and edited.
+#   - How you used them: Claude Code wrote the code for classify_text,
+#     compute_accuracy and the marked parts of main(), added the retry
+#     around the transformers import, tested the app locally, pushed the
+#     files to GitHub and helped debug the Streamlit Cloud deployment.
+#     The Q1 and Q2 answers below are my own and were not written by GenAI.
 #
 # Q1. Who is the primary business user of this app?
 #     (one short sentence; e.g., an employee or a security analyst reviewing
 #      inbound SMS for spam or scam-like messages)
-#   YOUR_ANSWER: A security analyst at a bank or telecom who screens
-#   inbound SMS for spam and scam-like (smishing) messages.
+#   YOUR_ANSWER: A fraud-operations officer at a mobile carrier who
+#   decides which incoming SMS should be flagged as suspicious before they
+#   reach subscribers.
 #
 # Q2. Look at the accuracy from your 100-sample test. Is accuracy enough
 #     for a business to rely on this app, and why or why not?
@@ -47,13 +50,15 @@ SECRET PHRASE (must appear on the app page): ISOM5160-HW2-SMS
 #     YOUR app run. Comment on the cost of a false positive (blocking a
 #     legitimate SMS, such as a bank or one-time code message) versus a
 #     false negative (missing a spam or scam-like message).
-#   YOUR_ANSWER: My run scored 99.00% (99 of 100 correct), but accuracy
-#   alone is not enough to rely on. Only 12 of the 100 samples were spam,
-#   and the one error was a false negative (a spam message passed as
-#   legitimate), so about 1 in 12 spam messages was missed, which is how a
-#   scam reaches a customer. A false positive would block a legitimate bank
-#   or one-time code SMS and directly hurt a customer, so the app should
-#   flag messages for human review rather than auto-block them.
+#   YOUR_ANSWER: Not on its own: my run reached 99.00% accuracy, with 0
+#   false positives and 1 false negative. But 88 of the 100 messages were
+#   legitimate, so labelling everything "legitimate" would still score
+#   88%; the more useful figure is that the app caught 11 of the 12 spam
+#   messages. A missed scam can cost a subscriber money, while a wrongly
+#   blocked bank alert or one-time code stops a real transaction, and 100
+#   samples are too few to trust a zero false-positive rate. I would use
+#   the app as a first-pass warning with human review, not as an automatic
+#   blocker.
 #
 # =============================================================================
 
