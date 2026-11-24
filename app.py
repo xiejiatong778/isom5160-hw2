@@ -59,7 +59,16 @@ SECRET PHRASE (must appear on the app page): ISOM5160-HW2-SMS
 
 import streamlit as st
 from datasets import load_dataset
-from transformers import pipeline
+
+try:
+    from transformers import pipeline
+except ImportError:
+    # On a Streamlit Cloud cold start two script runs can import transformers
+    # at the same moment and one of them fails. Wait briefly and try again.
+    import time
+
+    time.sleep(3)
+    from transformers import pipeline
 
 # Locked by the instructor — do not change these four values.
 DATASET_ID = "ucirvine/sms_spam"
